@@ -24,7 +24,7 @@ import toast, { Toaster } from 'react-hot-toast';
 // ==========================================
 // 1. REAL REST API CONNECTION WITH JWT
 // ==========================================
-const BASE_URL = 'http://127.0.0.1:5001/api';
+const BASE_URL = 'https://teamtaskmanager-production-32f7.up.railway.app/api';
 
 const getAuthHeaders = () => {
   const storedUser = localStorage.getItem('ethara_user');
