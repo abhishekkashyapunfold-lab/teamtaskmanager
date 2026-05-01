@@ -1,85 +1,138 @@
-===========================================================
-PROJECT: TEAM TASK MANAGER (FULL-STACK)
-CANDIDATE: Abhishek Kashyap
-SUBMISSION DATE: May 2, 2026
-===========================================================
+# Team Task Manager
 
-1. PROJECT DESCRIPTION
-----------------------
-A production-ready Task Management System designed for collaborative 
-teams. The app allows administrators to manage high-level projects 
-while allowing members to track and update individual task progress. 
-Built with a focus on security (JWT), scalability (MERN), and 
-user experience (Framer Motion).
+> A production-ready, full-stack Task Management System designed for collaborative teams. Manage high-level projects, track individual task progress, and monitor team performance with secure role-based access control.
 
-2. LIVE DEPLOYMENT
-------------------
-Frontend URL: https://teamtaskmanager-production-e3c7.up.railway.app
-Backend URL:  https://teamtaskmanager-production-32f7.up.railway.app
+### 🔗 Live Demo
 
-3. TECH STACK
--------------
-* Frontend: React 19, Tailwind CSS, Lucide Icons, Framer Motion, Axios.
-* Backend: Node.js, Express.js.
-* Database: MongoDB (Railway Managed) with Mongoose ODM.
-* Auth: JWT (JSON Web Tokens) & Bcrypt password hashing.
+| | Link |
+|---|---|
+| 🌐 **Frontend** | [https://teamtaskmanager-production-e3c7.up.railway.app](https://teamtaskmanager-production-e3c7.up.railway.app) |
+| 🔌 **Backend API** | [https://teamtaskmanager-production-32f7.up.railway.app](https://teamtaskmanager-production-32f7.up.railway.app) |
 
-4. PROJECT FILE STRUCTURE
--------------------------
-team-task-manager/
-├── backend/
-│   ├── models/           # Mongoose Schemas (User, Project, Task, Attendance)
-│   ├── routes/           # API Route Definitions
-│   ├── middleware/       # JWT Auth & Role-based Access Middleware
-│   ├── .env              # Environment Variables (Local)
-│   ├── seed.js           # Database Population Script
-│   ├── server.js         # Entry Point & Express Configuration
-│   └── package.json
-├── frontend/
-│   ├── src/
-│   │   ├── components/   # Reusable UI Components (Cards, Modals, Nav)
-│   │   ├── pages/        # Dashboard, Login, Project View
-│   │   ├── App.jsx       # Main Routing & Global State
-│   │   └── main.jsx      # Vite Entry Point
-│   ├── tailwind.config.js
-│   ├── package.json
-│   └── vite.config.js
-└── README.txt            # Project Documentation
+---
 
-5. CORE FEATURES & FUNCTIONALITY
---------------------------------
-* Authentication: Secure Login/Signup with persistent session tokens.
-* Role-Based Access (RBAC): 
-    - ADMIN: Can create projects, assign tasks, and view all data.
-    - MEMBER: Can view assigned tasks and update status.
-* Dashboard Metrics: Visual summary of Pending, In-Progress, and Completed tasks.
-* Seeded Ecosystem: Populated with 48 tasks and 13 projects for instant evaluation.
-* Responsive Design: Fully optimized for Mobile, Tablet, and Desktop.
+## 🚀 Tech Stack
 
-6. API ENDPOINTS (KEY)
-----------------------
-* POST /api/auth/login       - User Authentication
-* GET  /api/projects         - Fetch all projects (Auth Required)
-* POST /api/projects         - Create new project (Admin Only)
-* GET  /api/tasks/:projectId - Fetch tasks for a specific project
-* PATCH /api/tasks/:id       - Update task status
+| Layer | Technology |
+|---|---|
+| **Frontend** | React 19, Vite, Tailwind CSS, Framer Motion, Lucide Icons |
+| **Backend** | Node.js, Express.js |
+| **Database** | MongoDB (Railway Managed), Mongoose ODM |
+| **Auth** | JWT (JSON Web Tokens), bcrypt |
+| **HTTP** | Axios |
 
-7. DATABASE ARCHITECTURE
-------------------------
-* Users: Stores identity and RBAC roles.
-* Projects: Acts as a container for related tasks.
-* Tasks: Linked to ProjectID and AssignedTo (UserID) for strict relationships.
-* Attendance: Tracks daily team availability.
+---
 
-8. SETUP & INSTALLATION
------------------------
-1. Clone the repository.
-2. Inside /backend: Run 'npm install', set .env, and 'node server.js'.
-3. Inside /frontend: Run 'npm install' and 'npm run dev'.
-4. To populate data: Run 'node seed.js' in the backend folder.
+## ✨ Features
 
-9. ASSESSMENT CREDENTIALS
--------------------------
-Admin Email: admin@ethara.ai
-Password:    password123
-===========================================================
+- 🔐 **Authentication** — Secure Login/Signup with persistent session tokens.
+- 🛡️ **Role-Based Access (RBAC)** — 
+  - **Admin**: Create projects, assign tasks, and view all system data.
+  - **Member**: View assigned tasks and update task status.
+- 📊 **Dashboard Metrics** — Visual summaries of Pending, In-Progress, and Completed tasks.
+- 📁 **Projects** — Dedicated containers for organizing related tasks.
+- ✅ **Tasks** — Strict relational mapping linked to ProjectID and AssignedTo (UserID).
+- 🕒 **Attendance** — Track daily team availability.
+- 📱 **Responsive Design** — Fully optimized user experience for Mobile, Tablet, and Desktop.
+
+---
+
+## 🏁 Local Setup
+
+### Prerequisites
+- Node.js 18+
+- MongoDB Atlas account (or local MongoDB instance)
+
+### 1. Clone the repo
+```bash
+git clone <your-repo-url>
+cd team-task-manager
+```
+
+### 2. Backend Setup
+```bash
+cd backend
+npm install
+# Create a .env file based on environment variables below
+node seed.js # (Optional) Populate database with 48 tasks and 13 projects for instant evaluation
+node server.js
+```
+
+### 3. Frontend Setup
+```bash
+cd frontend
+npm install
+# Create a .env file for the frontend variables
+npm run dev
+```
+
+### 4. Open
+```
+Frontend: http://localhost:5173
+Backend:  http://localhost:5000 # (Or the port specified in your .env)
+```
+
+---
+
+## 🔑 Environment Variables
+
+### Backend (`backend/.env`)
+```env
+MONGODB_URI=mongodb+srv://<user>:<pass>@cluster.mongodb.net/taskmanager
+JWT_SECRET=your_secret_key
+PORT=5000
+```
+
+### Frontend (`frontend/.env` or `.env.local`)
+```env
+VITE_API_URL=http://localhost:5000/api
+```
+
+---
+
+## 📡 Key API Endpoints
+
+### Auth
+| Method | Route | Access | Description |
+|---|---|---|---|
+| POST | `/api/auth/login` | Public | User Authentication & JWT retrieval |
+
+### Projects
+| Method | Route | Access | Description |
+|---|---|---|---|
+| GET | `/api/projects` | Private | Fetch all projects (Auth Required) |
+| POST | `/api/projects` | Admin | Create new project (Admin Only) |
+
+### Tasks
+| Method | Route | Access | Description |
+|---|---|---|---|
+| GET | `/api/tasks/:projectId` | Private | Fetch tasks for a specific project |
+| PATCH | `/api/tasks/:id` | Private | Update task status |
+
+---
+
+## 🌐 Deployment
+
+Both the Frontend and Backend for this project are actively deployed on **Railway**.
+
+| Service | Platform | URL |
+|---|---|---|
+| **Frontend** | Railway | [https://teamtaskmanager-production-e3c7.up.railway.app](https://teamtaskmanager-production-e3c7.up.railway.app) |
+| **Backend API** | Railway | [https://teamtaskmanager-production-32f7.up.railway.app](https://teamtaskmanager-production-32f7.up.railway.app) |
+
+---
+
+## 👤 Assessment Credentials
+
+Use these credentials to evaluate the seeded ecosystem instantly:
+
+| Role | Email | Password |
+|---|---|---|
+| **Admin** | `admin@ethara.ai` | `password123` |
+
+---
+
+## 📄 Documentation
+
+*Candidate:* Abhishek Kashyap  
+*Submission Date:* May 2, 2026
