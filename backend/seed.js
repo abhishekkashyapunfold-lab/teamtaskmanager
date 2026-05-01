@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
-// 1. Connection URI
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/ethara-task-manager';
+// 1. Connection URI - HARDCODED TO RAILWAY TO FORCE THE CLOUD CONNECTION
+const MONGO_URI = 'mongodb://mongo:LOnXwQseHlGWMkxjEWPTInpGGrTjeATH@switchyard.proxy.rlwy.net:40590/team_task_manager?authSource=admin';
 
 // 2. Schemas (Standalone for the script)
 const UserSchema = new mongoose.Schema({
@@ -43,15 +43,16 @@ const Attendance = mongoose.model('Attendance', AttendanceSchema);
 // 3. Seed Logic
 async function seedDB() {
   try {
+    // This will now strictly connect to Railway
     await mongoose.connect(MONGO_URI);
-    console.log('🔌 Connected to MongoDB. Clearing old data...');
+    console.log('🔌 Connected to Railway MongoDB. Clearing old data...');
 
     await User.deleteMany({});
     await Project.deleteMany({});
     await Task.deleteMany({});
     await Attendance.deleteMany({});
 
-    console.log('🧹 Old data cleared. Seeding 10 users, 13 projects, and 45+ tasks...');
+    console.log('🧹 Old data cleared. Seeding 10 users, 13 projects, and 45+ tasks directly to the cloud...');
 
     const salt = await bcrypt.genSalt(10);
     const hp = await bcrypt.hash('password123', salt);
@@ -152,10 +153,10 @@ async function seedDB() {
     }));
     await Attendance.insertMany(attendanceRecords);
 
-    console.log('✅ Database populated successfully with 10 users, 13 projects, and 48 tasks!');
+    console.log('✅ Railway Database populated successfully with 10 users, 13 projects, and 48 tasks!');
     process.exit(0);
   } catch (err) {
-    console.error('❌ Error seeding database:', err);
+    console.error('❌ Error seeding Railway database:', err);
     process.exit(1);
   }
 }
